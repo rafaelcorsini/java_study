@@ -1,2 +1,2 @@
-# java_study
+# study
 Repository for study
