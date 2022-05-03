@@ -106,4 +106,10 @@ public class PedidoServiceImpl implements PedidoService {
 	public List<Pedido> getPedidoPorStatus(StatusPedido status) {
 		return pedidoRepository.findPedidoByStatus(status);
 	}
+	
+	@Override
+	public boolean testSonar() {
+		return true;
+	}
+
 }
