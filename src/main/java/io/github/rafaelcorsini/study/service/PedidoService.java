@@ -1,5 +1,6 @@
 package io.github.rafaelcorsini.study.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import io.github.rafaelcorsini.study.domain.entity.Pedido;
@@ -13,4 +14,6 @@ public interface PedidoService {
 	void atualizarStatus(Integer id, StatusPedido statusPedido);
 	
 	boolean test();
+	
+	List<Pedido> getPedidoPorStatus(StatusPedido status);
 }
