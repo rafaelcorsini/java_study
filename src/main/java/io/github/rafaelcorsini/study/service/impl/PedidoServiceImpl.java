@@ -101,4 +101,9 @@ public class PedidoServiceImpl implements PedidoService {
 	public boolean test() {
 		return true;
 	}
+
+	@Override
+	public List<Pedido> getPedidoPorStatus(StatusPedido status) {
+		return pedidoRepository.findPedidoByStatus(status);
+	}
 }
