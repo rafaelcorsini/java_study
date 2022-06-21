@@ -15,11 +15,9 @@ class PedidoServiceTest {
 		Assertions.assertEquals(true, true);
 	}
 
-	@Test
-	void testObterPedidoCompleto() {
-		Assertions.assertEquals(true, true);
-	}
-
+	/*
+	 * @Test void testObterPedidoCompleto() { Assertions.assertEquals(true, true); }
+	 */
 	/*
 	 * @Test void testAtualizarStatus() { fail("Not yet implemented"); }
 	 */
