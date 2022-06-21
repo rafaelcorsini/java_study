@@ -5,6 +5,8 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -22,16 +24,29 @@ import org.springframework.web.server.ResponseStatusException;
 
 import io.github.rafaelcorsini.study.domain.entity.Cliente;
 import io.github.rafaelcorsini.study.domain.repository.ClienteRepository;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api/clientes")
+@Api("Api Clientes")
 public class ClienteController {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
 	@GetMapping("{id}")
-	public Cliente getClienteById(@PathVariable Integer id) {
+	@ApiOperation("Obter detalhes de um cliente")
+	@ApiResponses( {
+		@ApiResponse(code = 200, message = "Cliente encontrado"),
+		@ApiResponse(code = 404, message = "Cliente não encontrado para o ID informado")
+	})
+	public Cliente getClienteById(
+				@PathVariable 
+				@ApiParam("ID do cliente") Integer id) {
 		return clienteRepository
 					.findById(id)
 					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Cliente não encontrado!"));
@@ -39,7 +54,12 @@ public class ClienteController {
 
 	@PostMapping
 	@ResponseStatus(CREATED)
-	public Cliente save(@RequestBody Cliente cliente) {
+	@ApiOperation("Salva um novo cliente")
+	@ApiResponses( {
+		@ApiResponse(code = 201, message = "Cliente salvo com sucesso"),
+		@ApiResponse(code = 400, message = "Erro de validação")
+	})
+	public Cliente save(@RequestBody @Valid Cliente cliente) {
 		return clienteRepository.save(cliente);
 	}
 
@@ -55,7 +75,7 @@ public class ClienteController {
 
 	@PutMapping("{id}")
 	@ResponseStatus(NO_CONTENT)
-	public void update(@PathVariable Integer id, @RequestBody Cliente cliente) {
+	public void update(@PathVariable Integer id, @RequestBody @Valid Cliente cliente) {
 		clienteRepository.findById(id)
 			.map(clienteExistente -> {
 				cliente.setId(clienteExistente.getId());
