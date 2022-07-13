@@ -16,4 +16,5 @@ public interface PedidoService {
 	boolean test();
 	
 	List<Pedido> getPedidoPorStatus(StatusPedido status);
+	boolean testSonar();
 }
